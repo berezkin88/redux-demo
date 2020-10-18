@@ -2,6 +2,7 @@ import { INCREMENT } from './actions';
 import { IAppState } from './store';
 import { NgRedux, select } from 'ng2-redux';
 import { Component } from '@angular/core';
+import { Map } from 'immutable';
 
 @Component({
   selector: 'app-root',
@@ -12,11 +13,11 @@ export class AppComponent {
   title = 'redux-demo';
   counter = 0;
 
-  constructor(private ngRedux: NgRedux<IAppState>) {
+  constructor(private ngRedux: NgRedux<Map<string, any>>) {
     ngRedux.subscribe(() => {
       let store = ngRedux.getState();
-      this.counter = store.counter;
-    })
+      this.counter = store.get('counter');
+    });
   }
 
   increment() {
